@@ -1,283 +1,347 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Support Cases</title>
+
+  <!-- Roboto like Google UI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#f6f8fb;
-      --card:#ffffff;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --line:#e5e7eb;
+      --text:#202124;
+      --muted:#5f6368;
+      --line:#dadce0;
+
       --blue:#1a73e8;
-      --blue-weak:#e8f0fe;
+      --blue-bg:#e8f0fe;
+
       --red:#d93025;
-      --red-weak:#fce8e6;
-      --shadow: 0 1px 2px rgba(0,0,0,.06), 0 6px 18px rgba(0,0,0,.06);
-      --radius:12px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--font);
-      color:var(--text);
-      background: white;
-    }
-    .wrap{
-      max-width: 980px;
-      margin: 24px auto 60px;
-      padding: 0 18px;
+      --red-bg:#fce8e6;
+
+      --search-bg:#f1f3f4;
+      --row-bg:#f8f9fa;
+      --hover-bg:#f1f3f4;
     }
 
-    /* Header */
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:#fff;
+    }
+
+    /* page width like screenshot */
+    .wrap{
+      max-width: 960px;
+      margin: 10px auto 48px;
+      padding: 0 16px;
+    }
+
+    /* header */
     .topbar{
       display:flex;
       align-items:center;
-      gap:10px;
-      margin-bottom: 18px;
+      gap:12px;
+      padding: 6px 0 10px;
     }
     .back{
-      width:34px;height:34px;border-radius:999px;
-      display:grid;place-items:center;
-      border:1px solid transparent;
+      width:32px;height:32px;
+      border-radius:999px;
+      border:0;
       background:transparent;
       cursor:pointer;
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      transition: background .15s ease;
     }
-    .back:hover{background:var(--bg);border-color:var(--line)}
+    .back:hover{ background: var(--hover-bg); }
     .title{
-      font-size: 22px;
-      font-weight: 650;
-      letter-spacing:.2px;
+      font-size:18px;
+      font-weight:500;
+      letter-spacing:0;
+      line-height:24px;
     }
-    .divider{height:1px;background:var(--line);margin: 10px 0 16px;}
+    .page-divider{
+      height:1px;
+      background:#e0e0e0;
+      margin: 8px 0 6px;
+    }
 
-    /* Tabs */
+    /* tabs */
     .tabs{
       display:flex;
       gap:18px;
-      align-items:flex-end;
-      border-bottom:1px solid var(--line);
-      margin-bottom: 14px;
+      border-bottom:1px solid #e0e0e0;
+      margin-bottom: 12px;
     }
     .tab{
-      appearance:none;border:0;background:transparent;
-      padding: 10px 2px 12px;
-      font-size: 13px;
-      color: var(--muted);
+      border:0;
+      background:transparent;
+      padding: 10px 10px 10px; /* add side padding for hover area */
+      font-size:13px;
+      color:#5f6368;
       cursor:pointer;
       position:relative;
+      font-weight:400;
+      border-radius:8px;
+      transition: background .15s ease, color .15s ease;
+    }
+    .tab:hover{
+      background: var(--hover-bg);
+    }
+    .tab:focus-visible{
+      outline:2px solid #c6dafc;
+      outline-offset:2px;
+      background: var(--hover-bg);
     }
     .tab[aria-selected="true"]{
-      color: var(--blue);
-      font-weight: 600;
+      color:#1a73e8;
+      font-weight:500;
     }
     .tab[aria-selected="true"]::after{
       content:"";
-      position:absolute;left:0;right:0;bottom:-1px;
-      height:3px;border-radius: 3px 3px 0 0;
-      background: var(--blue);
+      position:absolute;
+      left:10px; right:10px;   /* match hover padding */
+      bottom:-1px;
+      height:2px;
+      background:#1a73e8;
+      border-radius:2px 2px 0 0;
     }
 
-    /* Search */
+    /* search */
     .searchRow{
       display:flex;
       align-items:center;
       gap:10px;
-      background: #f1f3f4;
-      border:1px solid #e6e8eb;
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin: 14px 0 14px;
+      background:#f1f3f4;
+      border:1px solid #dadce0;
+      border-radius:6px;
+      padding: 8px 12px;
+      margin: 10px 0 16px;
+      transition: box-shadow .15s ease, background .15s ease;
     }
-    .searchRow svg{flex:0 0 auto;opacity:.65}
+    .searchRow:hover{
+      background:#eef0f1;
+    }
+    .searchRow:focus-within{
+      background:#fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+    .searchRow svg{ opacity:.7; }
     .search{
       width:100%;
       border:0;
       outline:none;
       background:transparent;
-      font-size: 14px;
+      font-size:14px;
+      color:var(--text);
     }
+    .search::placeholder{ color:#80868b; }
 
-    /* Case card */
+    /* card */
     .card{
-      background: var(--card);
       border:1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      border-radius:8px;
       overflow:hidden;
+      background:#fff;
     }
-    .card + .card{margin-top: 14px;}
+    .card + .card{ margin-top:16px; }
+
+    /* card header row */
     .cardHead{
       display:flex;
       justify-content:space-between;
       gap:12px;
-      padding: 16px 16px 10px;
-      align-items:flex-start;
+      padding: 12px 14px;
+      background:var(--row-bg);
+      border-bottom:1px solid var(--line);
     }
     .headLeft{
-      display:flex;gap:12px;align-items:flex-start;
-      min-width: 0;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      min-width:0;
     }
     .icon{
-      width:34px;height:34px;border-radius:999px;
-      display:grid;place-items:center;
-      background: var(--red-weak);
-      color: var(--red);
+      width:32px;height:32px;
+      border-radius:999px;
+      background:#a52714;
+      display:grid;
+      place-items:center;
       flex:0 0 auto;
     }
+    .icon svg{ color:#fff; }
     .caseTitle{
-      font-weight: 650;
-      font-size: 14px;
-      margin: 0 0 2px;
+      font-size:14px;
+      font-weight:500;
+      margin:0 0 2px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
     }
     .meta{
-      font-size: 12px;
-      color: var(--muted);
+      font-size:12px;
+      color:var(--muted);
     }
 
-    .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .badge{
-      font-size: 11px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border:1px solid transparent;
-      font-weight: 700;
-      letter-spacing:.2px;
-      line-height: 1;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .badge.progress{
-      color:#174ea6;
-      background: var(--blue-weak);
-      border-color:#d2e3fc;
-    }
-    .badge.urgent{
-      color: var(--red);
-      background: var(--red-weak);
-      border-color:#fad2cf;
-    }
-    .badge.open{
-      color:#0b57d0;
-      background:#e8f0fe;
-      border-color:#d2e3fc;
-    }
-    .badge.resolved{
-      color:#0f766e;
-      background:#d1fae5;
-      border-color:#a7f3d0;
-    }
-    .badge.closed{
-      color:#374151;
-      background:#f3f4f6;
-      border-color:#e5e7eb;
-    }
-
-    .cardBody{
-      padding: 0 16px 14px;
-      font-size: 13px;
-      color: #374151;
-      line-height: 1.45;
-    }
-    .cardBody p{margin: 10px 0 0;}
-    .sub{
-      margin-top: 14px;
-      border-top: 1px solid var(--line);
-      padding-top: 12px;
+    /* chips */
+    .badges{
       display:flex;
       gap:10px;
       align-items:flex-start;
-      color: var(--text);
+      padding-top:2px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
-    .subIcon{
-      width:26px;height:26px;border-radius:6px;
-      display:grid;place-items:center;
-      background:#f3f4f6;
-      color:#4b5563;
-      flex:0 0 auto;
-      margin-top: 2px;
+    .chip{
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.2px;
+      line-height:1;
+      padding: 6px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      white-space:nowrap;
+      user-select:none;
     }
-    .subTitle{
-      font-weight: 650;
-      font-size: 13px;
-      margin: 0 0 2px;
+    .chip.progress{
+      color:var(--blue);
+      background:var(--blue-bg);
+      border-color:#d2e3fc;
     }
-    .subMeta{font-size: 12px;color: var(--muted);}
+    .chip.open{
+      color:var(--blue);
+      background:var(--blue-bg);
+      border-color:#d2e3fc;
+    }
+    .chip.urgent{
+      color:var(--red);
+      background:var(--red-bg);
+      border-color:#fad2cf;
+    }
 
+    /* card content */
+    .cardBody{
+      padding: 12px 14px 0;
+      font-size:13px;
+      line-height:1.45;
+    }
+    .cardBody p{
+      margin: 10px 0 0;
+      color:var(--text);
+    }
+    .inner-divider{
+      height:1px;
+      background:var(--line);
+      margin: 14px -14px 0;
+    }
+
+    /* doc row */
+    .docRow{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding: 12px 14px;
+      border-bottom:1px solid var(--line);
+    }
+    .docIcon{
+      width:28px;height:28px;
+      border-radius:4px;
+      background:var(--red-bg);
+      display:grid;
+      place-items:center;
+      color:#a52714;
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+    .docTitle{
+      font-size:13px;
+      font-weight:500;
+      margin:0 0 2px;
+    }
+    .docMeta{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    /* footer buttons row */
     .cardFoot{
-      border-top:1px solid var(--line);
-      padding: 12px 16px;
+      background:var(--row-bg);
+      padding: 12px 14px;
       display:flex;
       justify-content:flex-end;
       gap:10px;
-      background: #fafafa;
     }
     .btn{
-      border-radius: 10px;
-      border:1px solid var(--line);
-      background:white;
-      padding: 9px 12px;
-      font-size: 13px;
+      border-radius:4px;
+      padding: 8px 14px;
+      font-size:13px;
+      font-weight:500;
       cursor:pointer;
-      font-weight: 600;
+      transition: background .15s ease, filter .15s ease;
     }
-    .btn:hover{background:#f9fafb}
+    .btn.secondary{
+      border:1px solid #c6dafc;
+      background:#fff;
+      color:var(--blue);
+    }
+    .btn.secondary:hover{ background:#f8f9ff; }
     .btn.primary{
-      background: var(--blue);
-      border-color: var(--blue);
-      color:white;
+      border:1px solid var(--blue);
+      background:var(--blue);
+      color:#fff;
     }
-    .btn.primary:hover{filter:brightness(.95)}
-    .mutedHint{
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .btn.primary:hover{ filter:brightness(.97); }
 
-    /* Footer mimic */
+    /* footer (privacy/terms/help/about) */
     .footer{
-      margin-top: 44px;
+      margin-top: 28px;
       display:flex;
       justify-content:center;
       gap:14px;
       flex-wrap:wrap;
-      font-size: 12px;
-      color: var(--muted);
+      font-size:12px;
+      color:var(--muted);
     }
-    .footer a{color:inherit;text-decoration:none}
-    .footer a:hover{text-decoration:underline}
+    .footer a{
+      color:inherit;
+      text-decoration:none;
+    }
+    .footer a:hover{ text-decoration:underline; }
 
-    /* Responsive */
-    @media (max-width:560px){
-      .cardHead{flex-direction:column;align-items:stretch}
-      .badges{justify-content:flex-start}
-      .cardFoot{justify-content:stretch}
-      .btn{width:100%}
+    /* responsive */
+    @media (max-width: 640px){
+      .cardHead{ flex-direction:column; }
+      .badges{ justify-content:flex-start; }
+      .cardFoot{ justify-content:stretch; flex-direction:column; }
+      .btn{ width:100%; }
+      .inner-divider{ margin-left:-14px; margin-right:-14px; }
     }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="topbar">
-      <button class="back" aria-label="Back" onclick="history.back()">
-        <!-- left arrow -->
+      <button class="back" aria-label="Google Help" onclick="window.open('https://support.google.com/', '_blank')">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
       <div class="title">Support Cases</div>
     </div>
 
-    <div class="divider"></div>
+    <div class="page-divider"></div>
 
     <div class="tabs" role="tablist" aria-label="Cases tabs">
-      <button class="tab" role="tab" aria-selected="true" data-tab="all">All cases</button>
+      <button class="tab" role="tab" aria-selected="true"  data-tab="all">All cases</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="open">Open</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="progress">In progress</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="resolved">Resolved</button>
@@ -286,7 +350,8 @@
 
     <div class="searchRow" role="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <input class="search" id="q" placeholder="Search support cases" autocomplete="off" />
     </div>
@@ -294,76 +359,67 @@
     <div id="list"></div>
 
     <div class="footer">
-      <a href="#" onclick="return false;">Privacy</a>
-      <a href="#" onclick="return false;">Terms</a>
-      <a href="#" onclick="return false;">Help</a>
-      <a href="#" onclick="return false;">About</a>
-      <span>© <span id="year"></span> Google LLC</span>
-    </div>
-  </div>
+  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a>
+  <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms</a>
+  <a href="https://support.google.com/" target="_blank" rel="noopener">Help</a>
+  <a href="https://about.google/" target="_blank" rel="noopener">About</a>
+  <span>© <span id="year"></span> Google LLC</span>
+</div>
 
   <script>
-    // Demo data (можешь менять под себя)
     const CASES = [
       {
-        id: "GS-2225-631205",
-        title: "Legal Investigations Support",
-        opened: "Apr 9, 2025",
-        status: "progress", // open | progress | resolved | closed
+        id: "YT-CP-2025-001",
+        title: "Copyright Claim – Music Usage",
+        opened: "March 4, 2026",
+        status: "progress",
         urgent: true,
-        description1: "Your legal request is currently under review. This matter requires additional documentation for processing.",
-        description2: "Our team has received your submitted documents and supporting materials. Review is in progress to determine next steps.",
-        subTitle: "Legal Documentation Review – In Progress",
-        subMeta: "Estimated review completion: Apr 11, 2025"
+        p1: "A copyright complaint has been submitted regarding the use of licensed music in one of your YouTube videos.",
+        p2: "The claimant alleges unauthorized use of protected audio content. Please review the complaint details and respond accordingly.",
+        docTitle: "Complaint Submitted – Review Required",
+        docMeta: "Action required: Review claim and respond"
       },
       {
-        id: "GS-2225-631777",
-        title: "Account Access Issue",
-        opened: "Apr 7, 2025",
+        id: "YT-CP-2025-002",
+        title: "Second Copyright Warning – Audio Track",
+        opened: "March 4, 2026",
         status: "open",
-        urgent: false,
-        description1: "We’ve received your request to restore access. A support agent will contact you shortly.",
-        description2: "If you have screenshots or error messages, please upload them to speed up the investigation.",
-        subTitle: "Triage – Open",
-        subMeta: "Next update: within 24 hours"
-      },
-      {
-        id: "GS-2225-630998",
-        title: "Billing Dispute Review",
-        opened: "Mar 30, 2025",
-        status: "resolved",
-        urgent: false,
-        description1: "Your billing dispute has been reviewed and a resolution has been applied to your account.",
-        description2: "If you still see incorrect charges, reply to the case with the latest invoice.",
-        subTitle: "Resolution Applied",
-        subMeta: "Resolved: Apr 2, 2025"
-      },
-      {
-        id: "GS-2225-629500",
-        title: "Content Policy Inquiry",
-        opened: "Mar 12, 2025",
-        status: "closed",
-        urgent: false,
-        description1: "This case has been closed after providing the requested policy clarification.",
-        description2: "You can reopen the case by submitting new information.",
-        subTitle: "Case Closed",
-        subMeta: "Closed: Mar 20, 2025"
+        urgent: true,
+        p1: "Another copyright warning has been issued for music usage on your YouTube channel.",
+        p2: "Failure to respond may result in content removal or channel restrictions. Immediate review is recommended.",
+        docTitle: "Formal Complaint Filed",
+        docMeta: "Action required: Open and review complaint"
       }
     ];
 
     const elList = document.getElementById("list");
     const elQ = document.getElementById("q");
-    const elYear = document.getElementById("year");
-    elYear.textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
     let activeTab = "all";
 
-    function badgeForStatus(status){
-      if(status === "open") return `<span class="badge open">OPEN</span>`;
-      if(status === "progress") return `<span class="badge progress">IN PROGRESS</span>`;
-      if(status === "resolved") return `<span class="badge resolved">RESOLVED</span>`;
-      if(status === "closed") return `<span class="badge closed">CLOSED</span>`;
+    function esc(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function chipForStatus(status){
+      if(status === "progress") return `<span class="chip progress">IN PROGRESS</span>`;
+      if(status === "open") return `<span class="chip open">OPEN</span>`;
+      if(status === "resolved") return `<span class="chip resolved">RESOLVED</span>`;
+      if(status === "closed") return `<span class="chip closed">CLOSED</span>`;
       return "";
+    }
+
+    function upload(){
+      window.open("https://drive.google.com/drive/my-drive", "_blank");
+    }
+    function viewCase(){
+      window.open("https://google.com", "_blank");
     }
 
     function render(){
@@ -373,100 +429,75 @@
         const inTab = (activeTab === "all") ? true : c.status === activeTab;
         if(!inTab) return false;
         if(!q) return true;
-        const hay = `${c.title} ${c.id} ${c.opened} ${c.description1} ${c.description2} ${c.subTitle} ${c.subMeta}`.toLowerCase();
+        const hay = `${c.title} ${c.id} ${c.opened} ${c.p1} ${c.p2} ${c.docTitle} ${c.docMeta}`.toLowerCase();
         return hay.includes(q);
       });
 
       if(filtered.length === 0){
-        elList.innerHTML = `<div class="mutedHint">No cases found.</div>`;
+        elList.innerHTML = `<div style="color:#5f6368;font-size:12px;margin-top:12px;">No cases found.</div>`;
         return;
       }
 
-      elList.innerHTML = filtered.map(c => {
-        const urgent = c.urgent ? `<span class="badge urgent">URGENT</span>` : "";
-        return `
-          <div class="card" data-id="${c.id}">
-            <div class="cardHead">
-              <div class="headLeft">
-                <div class="icon" aria-hidden="true">
-                  <!-- exclamation -->
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M12 17h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                    <path d="M10.3 4.3h3.4L21 20H3l7.3-15.7z" stroke="currentColor" stroke-width="1.6" opacity=".0"/>
-                  </svg>
-                </div>
-                <div style="min-width:0">
-                  <div class="caseTitle">${escapeHtml(c.title)}</div>
-                  <div class="meta">Internal Ref #${escapeHtml(c.id)} • Opened ${escapeHtml(c.opened)}</div>
-                </div>
+      elList.innerHTML = filtered.map(c => `
+        <div class="card">
+          <div class="cardHead">
+            <div class="headLeft">
+              <div class="icon" aria-hidden="true" title="Warning">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 18h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
               </div>
-              <div class="badges">
-                ${badgeForStatus(c.status)}
-                ${urgent}
+              <div style="min-width:0">
+                <div class="caseTitle">${esc(c.title)}</div>
+                <div class="meta">Internal Ref #${esc(c.id)} • Opened ${esc(c.opened)}</div>
               </div>
             </div>
 
-            <div class="cardBody">
-              <p>${escapeHtml(c.description1)}</p>
-              <p>${escapeHtml(c.description2)}</p>
-
-              <div class="sub">
-                <div class="subIcon" aria-hidden="true">
-                  <!-- doc icon -->
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M14 2H7a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V8l-5-6z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M9 13h6M9 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div class="subTitle">${escapeHtml(c.subTitle)}</div>
-                  <div class="subMeta">${escapeHtml(c.subMeta)}</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="cardFoot">
-              <button class="btn" onclick="upload('${c.id}')">Upload additional documents</button>
-              <button class="btn primary" onclick="viewCase('${c.id}')">View case</button>
+            <div class="badges">
+              ${chipForStatus(c.status)}
+              ${c.urgent ? `<span class="chip urgent">URGENT</span>` : ``}
             </div>
           </div>
-        `;
-      }).join("");
+
+          <div class="cardBody">
+            <p>${esc(c.p1)}</p>
+            <p>${esc(c.p2)}</p>
+            <div class="inner-divider"></div>
+          </div>
+
+          <div class="docRow">
+            <div class="docIcon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H7a2 2 0 00-2 2v16a2 2 0 002 2h10a2 2 0 002-2V8l-5-6z"
+                      stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M14 2v6h6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="docTitle">${esc(c.docTitle)}</div>
+              <div class="docMeta">${esc(c.docMeta)}</div>
+            </div>
+          </div>
+
+          <div class="cardFoot">
+            <button class="btn secondary" onclick="upload()">Upload additional documents</button>
+            <button class="btn primary" onclick="viewCase()">View case</button>
+          </div>
+        </div>
+      `).join("");
     }
 
-    // Simple handlers (замени на свои ссылки/действия)
-    function upload(id){
-      alert("Upload clicked for: " + id + "\\n\\nЗдесь можно открыть форму/диск/страницу загрузки.");
-    }
-    function viewCase(id){
-      alert("View case clicked for: " + id + "\\n\\nЗдесь можно открыть страницу кейса.");
-    }
-
-    // Tabs
-    document.querySelectorAll(".tab").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", "false"));
-        btn.setAttribute("aria-selected", "true");
+    document.querySelectorAll(".tab").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected","false"));
+        btn.setAttribute("aria-selected","true");
         activeTab = btn.dataset.tab;
         render();
       });
     });
 
-    // Search
     elQ.addEventListener("input", render);
-
-    // Small helper
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
     render();
   </script>
 </body>
